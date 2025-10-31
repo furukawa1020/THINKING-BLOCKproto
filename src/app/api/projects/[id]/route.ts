@@ -82,10 +82,10 @@ export async function PUT(
 // DELETE /api/projects/[id] - プロジェクトの削除
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const projectId = params.id;
+    const { id: projectId } = await params;
     const project = projects.get(projectId);
 
     if (!project) {
